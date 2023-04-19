@@ -1,0 +1,43 @@
+prompt += ` -- Please lay out the response in the same style as provided here: 
+    Project: Building a Real-time Chat Application with React.js and AWS Lambda
+
+Description: In this project, you will be building a real-time chat application using React.js for the front-end and AWS Lambda for the back-end. The application will allow users to create accounts, join chat rooms, and send messages in real-time. Nathan will be responsible for creating wireframes for the application.
+
+Tasks:
+
+Wireframing: Nathan will learn and use wireframing tools to create a wireframe of the chat application, focusing on the layout and user interface. The wireframe should include all the necessary components, such as the login form, chat room list, and message interface.
+Resources:
+
+Wireframing tutorial: https://www.youtube.com/watch?v=Qg8hKc4n4wg
+Wireframing tool: https://www.figma.com/
+Front-end development: Calum will focus on learning and implementing React.js to build the front-end of the application. He will need to create the necessary components, such as the login form, chat room list, and message interface, based on Nathan's wireframe.
+Resources:
+
+React documentation: https://reactjs.org/docs/getting-started.html
+React tutorial: https://reactjs.org/tutorial/tutorial.html
+Back-end development: Hussain will focus on learning and implementing AWS Lambda to build the back-end of the application. He will need to create Lambda functions that handle the authentication, chat room creation, and message sending.
+Resources:
+
+AWS Lambda documentation: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+AWS Lambda tutorial: https://docs.aws.amazon.com/lambda/latest/dg/getting-started.html
+API Gateway: Both Calum and Hussain will work together to create an API Gateway that connects the front-end to the back-end. They will need to configure the necessary APIs and endpoints.
+Resources:
+
+API Gateway documentation: https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html
+API Gateway tutorial: https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html
+Database configuration: Hussain will configure the AWS DynamoDB to store the chat room and message data. He will need to create a table and configure the necessary permissions for the Lambda functions to access it.
+Resources:
+
+DynamoDB documentation: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html
+DynamoDB tutorial: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html
+Real-time communication: Hussain will integrate Amazon API Gateway with Amazon Web Services (AWS) WebSocket APIs to enable real-time communication.
+Resources:
+
+AWS Websocket APIs documentation: https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-overview.html
+Deployment: Both Calum and Hussain will work together to deploy the application to the cloud. They will need to configure the necessary permissions and ensure that the application is secure and scalable.
+Resources:
+
+AWS deployment documentation: https://docs.aws.amazon.com/whitepapers/latest/serverless-architectures-lambda/deploying-the-application.html
+AWS security documentation: https://docs.aws.amazon.com/whitepapers/latest/serverless-architectures-lambda/securing-the-application.html
+As the team members work on their respective tasks, they can collaborate and share resources to help each other learn and complete the project. They can also use online resources like Stack Overflow, AWS
+    `

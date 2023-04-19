@@ -1,0 +1,183 @@
+import TextField from "@mui/material/TextField";
+import * as React from "react";
+import { useState } from "react";
+import { Configuration, OpenAIApi } from "openai";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import "./App.css";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+
+const API_KEY = "API_KEY_HERE";
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY || API_KEY,
+});
+const openai = new OpenAIApi(configuration);
+
+function App() {
+  const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref
+  ) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  function createData(
+    nameP: string,
+    skillP: string,
+    levelP: string,
+    timeP: string
+  ) {
+    return { nameP, skillP, levelP, timeP };
+  }
+
+  const [open, setOpen] = React.useState(false);
+  const [name, setName] = useState("");
+  const [skill, setSkill] = useState("");
+  const [level, setLevel] = useState("");
+  const [timeframe, setTimeframe] = useState("");
+  const [hackathonTask, setHackathonTask] = useState("");
+  const [rows, setRows] = useState([]);
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleSkillChange = (event) => {
+    setSkill(event.target.value);
+  };
+
+  const handleLevelChange = (event) => {
+    setLevel(event.target.value);
+  };
+
+  const handleTimeframeChange = (event) => {
+    setTimeframe(event.target.value);
+  };
+
+  const generateHackathonTask = async () => {
+    const prompt = `Create a hackathon task for ${name} to learn ${skill} to a ${level} level within ${timeframe}.`;
+    setOpen(true);
+    const completion = await openai.createCompletion({
+      model: "text-davinci-002",
+      prompt: prompt,
+      maxTokens: 40,
+      n: 1,
+      stop: "\n",
+      frequencyPenalty: 0.5,
+      presencePenalty: 0.5,
+      temperature: 0.7,
+    });
+
+    // set the hackathon task after completion
+    completion.then((response) => {
+      setHackathonTask(response.data.choices[0].text);
+    });
+  };
+
+  const addTeamMember = async () => {
+    const newRow = createData(name, skill, level, timeframe);
+    setRows([...rows, newRow]);
+    setName("");
+    setSkill("");
+    setLevel("");
+    setTimeframe("");
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  return (
+    <div className="App">
+      <Box sx={{ flexGrow: 1 }}>
+        <Stack spacing={2} direction="row">
+          <Typography variant="h4" sx={{ flexGrow: 1 }}>
+            Hackathon Task Generator
+          </Typography>
+        </Stack>
+      </Box>
+      <TextField
+        required
+        label="Name"
+        value={name}
+        onChange={handleNameChange}
+      />
+      <TextField
+        required
+        label="Skill"
+        value={skill}
+        onChange={handleSkillChange}
+      />
+      <TextField
+        required
+        label="Level"
+        value={level}
+        onChange={handleLevelChange}
+      />
+      <TextField
+        required
+        label="Timeframe"
+        value={timeframe}
+        onChange={handleTimeframeChange}
+      />
+      <Button variant="contained" onClick={generateHackathonTask}>
+        Generate Task
+      </Button>
+      {hackathonTask && (
+        <Box sx={{ mt: 2 }}>
+          <Typography variant="h6">Hackathon Task:</Typography>
+          <Typography variant="body1">{hackathonTask}</Typography>
+        </Box>
+      )}
+      <Button variant="contained" onClick={addTeamMember}>
+        Add Team Member
+      </Button>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell align="right">Skill</TableCell>
+              <TableCell align="right">Level</TableCell>
+              <TableCell align="right">Timeframe</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {row.nameP}
+                </TableCell>
+                <TableCell align="right">{row.skillP}</TableCell>
+                <TableCell align="right">{row.levelP}</TableCell>
+                <TableCell align="right">{row.timeP}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Hackathon task generated successfully!
+        </Alert>
+      </Snackbar>
+    </div>
+  );
+}
+
+export default App;
