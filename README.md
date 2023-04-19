@@ -44,13 +44,11 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-<<<<<<< HEAD
-### --------------
 # OpenAI Hackathon Learning Plan
 This is a React.js web application that generates a comprehensive and customized learning plan (hackathon) for team members to master a particular skill to a specific level within a given timeframe. The generated plan includes an overview of the task, specific and actionable steps, resources to call upon to help with learning the skill, and help with completing the task, and milestones that each team member can follow to achieve their objectives.
 
 The application uses OpenAI's GPT-3 API to generate the hackathon learning plan based on the team member's name, skill, level, and timeframe inputs. If there are already existing team member records, the app can generate a comprehensive learning plan for multiple team members.
-=======
+
 # Tailored Hackathon Generator
 This is a React.js web application that generates a comprehensive and customised learning plan (hackathon) for team members to master a particular skill to a specific level within a given timeframe. The generated plan includes an overview of the task, specific and actionable steps, resources to call upon to help with learning the skill, and help with completing the task, as well milestones that each team member can follow to achieve their objectives.
 
@@ -62,31 +60,25 @@ The application uses OpenAI's API to generate the hackathon learning plan based 
 Input field for users emails, this will allow for an email to be generated and sent to each team member with the hackathon brief and the specific tasks that they are required to do.
 
 Allow for multiple screen views to best match the user's needs i.e schools might want to put a limit of the competency level that students may input.
->>>>>>> 33b9c834a695ad8529530c88ecdf810eb853828a
 
 ## Installation
 Clone the repository: git clone: https://github.com/CalumMcCallion/skill-developer.git
 Navigate to the project directory: cd REPOSITORY
 Install dependencies: npm install
 Run the app: npm start
-<<<<<<< HEAD
+
 You should replace USERNAME/REPOSITORY with your GitHub username and the name of the cloned repository.
-=======
->>>>>>> 33b9c834a695ad8529530c88ecdf810eb853828a
 
 ## Usage
 To use the app, fill out the form with the team member's name, skill, level, and timeframe to master the skill. The generated hackathon learning plan will be displayed in the textbox below the form.
 
-<<<<<<< HEAD
+
 If there are already existing team member records, the app will automatically generate a comprehensive learning plan for multiple team members.
 
-=======
->>>>>>> 33b9c834a695ad8529530c88ecdf810eb853828a
 ## Dependencies
 @mui/material
 @openai/openai-api
 
-<<<<<<< HEAD
 ## Environment Variables
 API_KEY - Your OpenAI API key
 
@@ -98,4 +90,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 =======
 ## Contributing
 Feel free to submit a pull request or raise an issue for bug fixes or new features.
->>>>>>> 33b9c834a695ad8529530c88ecdf810eb853828a
