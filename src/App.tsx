@@ -103,7 +103,6 @@ Resources:
 
 (Tool) documentation: https://(tool).org.html
 (Tool) tutorial: https://(tool).org/tutorial.html
-
     `
 
     setOpen(true);
