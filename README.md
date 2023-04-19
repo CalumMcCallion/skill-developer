@@ -44,7 +44,7 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-# OpenAI Hackathon Learning Plan
+# Tailored Hackathon Generator
 This is a React.js web application that generates a comprehensive and customised learning plan (hackathon) for team members to master a particular skill to a specific level within a given timeframe. The generated plan includes an overview of the task, specific and actionable steps, resources to call upon to help with learning the skill, and help with completing the task, as well milestones that each team member can follow to achieve their objectives.
 
 There is the ability to add as many team members to the list as you want, each with different skill development requests, therefore if there are already existing team member records, the app will automatically generate a comprehensive learning plan for multiple team members that combines all of the inputs into a final project plan that will allow the members to work together and develop team working skills as a bonus whilst advancing their skills in a practical non boring way.
