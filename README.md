@@ -1,6 +1,5 @@
-# Getting Started with Create React App
+# Getting Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -44,3 +43,34 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+### --------------
+# OpenAI Hackathon Learning Plan
+This is a React.js web application that generates a comprehensive and customized learning plan (hackathon) for team members to master a particular skill to a specific level within a given timeframe. The generated plan includes an overview of the task, specific and actionable steps, resources to call upon to help with learning the skill, and help with completing the task, and milestones that each team member can follow to achieve their objectives.
+
+The application uses OpenAI's GPT-3 API to generate the hackathon learning plan based on the team member's name, skill, level, and timeframe inputs. If there are already existing team member records, the app can generate a comprehensive learning plan for multiple team members.
+
+## Installation
+Clone the repository: git clone: https://github.com/CalumMcCallion/skill-developer.git
+Navigate to the project directory: cd REPOSITORY
+Install dependencies: npm install
+Run the app: npm start
+You should replace USERNAME/REPOSITORY with your GitHub username and the name of the cloned repository.
+
+## Usage
+To use the app, fill out the form with the team member's name, skill, level, and timeframe to master the skill. The generated hackathon learning plan will be displayed in the textbox below the form.
+
+If there are already existing team member records, the app will automatically generate a comprehensive learning plan for multiple team members.
+
+## Dependencies
+@mui/material
+@openai/openai-api
+
+## Environment Variables
+API_KEY - Your OpenAI API key
+
+## Contributing
+Feel free to submit a pull request or raise an issue for bug fixes or new features.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.

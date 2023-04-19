@@ -85,28 +85,42 @@ function App() {
     }
     
     prompt += `The plan should be tailored to the requirements and goals of each team member. It should include an overview of the task, specific and actionable steps, resources to call upon to help with learning ${skill} and help with completing the task, and milestones that each team member can follow to achieve their objective. Additionally, please provide a brief explanation for each step and the reason behind it. The plan should empower each team member to not only learn ${skill} but also develop a deep understanding and practical application of it. The final learning plan should be presented in a clear and concise format that is easy for each team member to follow and refer to throughout their learning journey.`;
+    prompt += ` ## Return response in the same layout as provided here but don't pay attention to the context as you will come up with your own Project based on the input: 
+Project: (Project Title)
+
+Description: (Detailed Project Description)
+
+(Tailored Task) EXAMPLE: Front-end development: Calum will focus on learning and implementing React.js to build the front-end of the application. He will need to create the necessary components, such as the login form, chat room list, and message interface.
+
+Resources:
+
+(Tool) documentation: https://(tool).org.html
+(Tool) tutorial: https://(tool).org/tutorial.html
+
+(Tailored Task) EXAMPLE: Back-end development: Hussain will focus on learning and implementing AWS Lambda to build the back-end of the application. He will need to create Lambda functions that handle the authentication, chat room creation, and message sending.
+
+Resources:
+
+(Tool) documentation: https://(tool).org.html
+(Tool) tutorial: https://(tool).org/tutorial.html
+
+    `
 
     setOpen(true);
     
-    const completion = await new Promise((resolve, reject) => {
-      openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: prompt,
-        max_tokens: 3800,
-        n: 1,
-        frequency_penalty: 0.2,
-        presence_penalty: 0.8,
-        temperature: 0.7,
-      })
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          reject(error);
-        });
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
+      max_tokens: 3671,
+      n: 1,
+      temperature: 0.7,
     });
     
-    setHackathonTask(completion.data.choices[0].text);
+    const choice = completion.data.choices[0];
+    const hackathonTask = choice.message.content.trim();
+    
+    setHackathonTask(hackathonTask);
+    
 
     // let firstResponse = hackathonTask;
     // let finalResponse = "Combine the following tasks into a singular hackathon that is split into individual tasks suited for the team member and the skill, level and timeframe they set: " + firstResponse;
