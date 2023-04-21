@@ -1,58 +1,118 @@
-
 .Spacing {
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: large;
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 25px;
   margin-top: 40px;
-  margin-left: 600px;
+  margin-left: auto;
+  margin-right: auto;
   width: 500px;
+  border-radius: 40px;
+  background: linear-gradient(to bottom, #bbe0f5, #FDFDFD);
+  box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.2);
+  padding: 30px;
 }
 
-.Spacing > * {
-  background-color: rgb(186, 238, 252);
+
+.Spacing button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 8px rgb(92, 199, 245);
+  background-color: #00c3ff;
 }
+.Spacing button {
+ background-color: #00CFFF;
+}
+
+
+.Spacing input[type="text"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 8px rgb(92, 199, 245);
+}
+
+
 
 
 .Title {
   font-size: 40px;
-  font-weight: bold;
+  font-family: 'Raleway',sans-serif;
+  font-weight: 800;
   text-align: center;
-  background: linear-gradient(45deg, #ffffff, #5ac2ff);
+  background-image: linear-gradient(45deg, #0078FF, #00CFFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.Preview-Box {
-  background-color: rgb(186, 238, 252);
-  margin-left: 250px;
-  margin-top: 50px;
-  width: 1200px;
-  height: fit-content;
+  padding: 10px 20px;
   border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+  text-shadow: 0px 0px 40px rgb(255, 255, 255);
   }
   
-  .Preview-Text {
-  color: black;
+
+
+.Preview-Box {
+  background-color: #F2F5FA;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 80%;
+  max-width: 1200px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  opacity: 0.4; /* set initial opacity to 50% */
+  box-shadow: 0px 0px 50px rgba(0, 0, 0);
+  transition: opacity 0.5s ease-in-out; /* add a transition effect to the opacity property */
+}
+
+.Preview-Box.show {
+  opacity: 1; /* set opacity to 100% when the 'show' class is added */
+}
+
+
+
+.Preview-Text {
+  color: #333333;
   font-size: 20px;
   display: flex;
   margin: 20px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  .Preview-Title {
-    color: black;
-    font-size: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-left: 10px;
-    margin-top: 5px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    }
+.Preview-Title {
+  color: #0078FF;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: 10px;
+  margin-top: 5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Preview-Box-Text {
+  color: #333333;
+  font-size: 20px;
+  display: flex;
+  margin: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Preview-Box-Title {
+  color: #0078FF;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: 10px;
+  margin-top: 5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

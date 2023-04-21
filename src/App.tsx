@@ -1,9 +1,10 @@
 import TextField from "@mui/material/TextField";
 import * as React from "react";
 import { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Configuration, OpenAIApi } from "openai";
 import Typography from "@mui/material/Typography";
-import { CompletionResponse } from '@openai/openai-api';
+import { CompletionResponse } from "@openai/openai-api";
 import Box from "@mui/material/Box";
 import "./App.css";
 import Stack from "@mui/material/Stack";
@@ -16,25 +17,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
-
 const API_KEY = "API_KEY_HERE";
 
 const configuration = new Configuration({
-  apiKey: API_KEY,
+  apiKey: "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",
 });
 
 const openai = new OpenAIApi(configuration);
 
 function App() {
-  const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-    props,
-    ref
-  ) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-
   function createData(
     nameP: string,
     skillP: string,
@@ -46,6 +37,7 @@ function App() {
 
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [skill, setSkill] = useState("");
   const [level, setLevel] = useState("");
   const [timeframe, setTimeframe] = useState("");
@@ -56,21 +48,23 @@ function App() {
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
-  
+
   const handleSkillChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSkill(event.target.value);
   };
-  
+
   const handleLevelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLevel(event.target.value);
   };
-  
-  const handleTimeframeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleTimeframeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setTimeframe(event.target.value);
   };
-  
+
   const generateHackathonTask = async () => {
-    let prompt = '';
+    let prompt = "";
     const numRows = rows.length;
     if (numRows > 0) {
       prompt = `Develop a comprehensive and customized learning plan (hackathon) for the following team members: `;
@@ -78,12 +72,14 @@ function App() {
         prompt += `${row.nameP}, `;
       });
       rows.forEach((row) => {
-        prompt = prompt.slice(0, -2) + `, ${row.nameP} to master ${row.skillP} within ${row.timeP} to a ${row.levelP} level . `;
+        prompt =
+          prompt.slice(0, -2) +
+          `, ${row.nameP} to learn ${row.skillP} within ${row.timeP} to a ${row.levelP} level . `;
       });
     } else {
-      prompt = `Develop a comprehensive and customized learning plan (hackathon) for ${name} to master ${skill} to a ${level} level within ${timeframe}. The plan should be tailored to ${name}'s requirements, and goals. It should include an overview of the task, specific and actionable steps, resources to call upon to help with learning ${skill} and help with completing the task, and milestones that ${name} can follow to achieve their objective. Additionally, please provide a brief explanation for each step and the reason behind it. The plan should empower ${name} to not only learn ${skill} but also develop a deep understanding and practical application of it. The final learning plan should be presented in a clear and concise format that is easy for ${name} to follow and refer to throughout their learning journey.`;
+      prompt = `Develop a comprehensive and customized learning plan (hackathon) for ${name} to learn ${skill} to a ${level} level within ${timeframe}. The plan should be tailored to ${name}'s requirements, and goals. It should include an overview of the task, specific and actionable steps, resources to call upon to help with learning ${skill} and help with completing the task, and milestones that ${name} can follow to achieve their objective. Additionally, please provide a brief explanation for each step and the reason behind it. The plan should empower ${name} to not only learn ${skill} but also develop a deep understanding and practical application of it. The final learning plan should be presented in a clear and concise format that is easy for ${name} to follow and refer to throughout their learning journey.`;
     }
-    
+
     prompt += `The plan should be tailored to the requirements and goals of each team member. It should include an overview of the task, specific and actionable steps, resources to call upon to help with learning ${skill} and help with completing the task, and milestones that each team member can follow to achieve their objective. Additionally, please provide a brief explanation for each step and the reason behind it. The plan should empower each team member to not only learn ${skill} but also develop a deep understanding and practical application of it. The final learning plan should be presented in a clear and concise format that is easy for each team member to follow and refer to throughout their learning journey.`;
     prompt += ` ## Return response in the same layout as provided here but don't pay attention to the context as you will come up with your own Project based on the input: 
 Project: (Project Title)
@@ -103,10 +99,10 @@ Resources:
 
 (Tool) documentation: https://(tool).org.html
 (Tool) tutorial: https://(tool).org/tutorial.html
-    `
+    `;
 
     setOpen(true);
-    
+
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
@@ -114,12 +110,11 @@ Resources:
       n: 1,
       temperature: 0.7,
     });
-    
+
     const choice = completion.data.choices[0];
     const hackathonTask = choice.message.content.trim();
-    
+
     setHackathonTask(hackathonTask);
-    
 
     // let firstResponse = hackathonTask;
     // let finalResponse = "Combine the following tasks into a singular hackathon that is split into individual tasks suited for the team member and the skill, level and timeframe they set: " + firstResponse;
@@ -141,14 +136,9 @@ Resources:
     //       reject(error);
     //     });
     // });
-    
-    // setHackathonTaskF(completion2.data.choices[0].text);
 
+    // setHackathonTaskF(completion2.data.choices[0].text);
   };
-  
-  
-  
-  
 
   const addTeamMember = async () => {
     const newRow = createData(name, skill, level, timeframe);
@@ -159,10 +149,8 @@ Resources:
     setTimeframe("");
   };
 
-
   const numRows = rows.length;
-  if (numRows > 1){
-    
+  if (numRows > 1) {
   }
 
   const handleClose = (event, reason) => {
@@ -170,6 +158,11 @@ Resources:
       return;
     }
     setOpen(false);
+  };
+
+  const handleGenerateHackathonTaskClick = () => {
+    setLoading(true);
+    generateHackathonTask();
   };
 
   return (
@@ -220,19 +213,9 @@ Resources:
         <Button variant="contained" onClick={addTeamMember}>
           Add Team Member
         </Button>
-        <Button variant="contained" onClick={generateHackathonTask}>
+        <Button variant="contained" onClick={handleGenerateHackathonTaskClick}>
           Generate Hackathon Task
         </Button>
-        
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Inputs Successfully Submitted - Generating Hackathon
-          </Alert>
-        </Snackbar>
 
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 500 }} aria-label="simple table">
@@ -259,14 +242,18 @@ Resources:
             </TableBody>
           </Table>
         </TableContainer>
-      </div>
-      
-      <div className="Preview-Box">
-      <h1 className="Preview-Title">Response:</h1>
-        <div className="Preview-Text">{hackathonTask && <p>{hackathonTask}</p>}
-        </div>
+        <div>{loading && !hackathonTask && <CircularProgress />}</div>
       </div>
 
+      <div className={`Preview-Box ${hackathonTask ? "show" : ""}`}>
+        {hackathonTask && <h1 className="Preview-Box-Title">Response:</h1>}
+        <div
+          className="Preview-Box-Text"
+          dangerouslySetInnerHTML={{
+            __html: hackathonTask && hackathonTask.replace(/\n/g, "<br>"),
+          }}
+        ></div>
+      </div>
     </>
   );
 }
