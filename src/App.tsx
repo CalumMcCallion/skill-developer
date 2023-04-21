@@ -23,7 +23,7 @@ const API_KEY = "API_KEY_HERE";
 let messageFeedback = "";
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "API_KEY_HERE",
 });
 
 const openai = new OpenAIApi(configuration);
