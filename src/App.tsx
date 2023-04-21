@@ -40,6 +40,7 @@ function App() {
 
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [popFlag, setPopFlag] = useState(false);
   const [skill, setSkill] = useState("");
   const [level, setLevel] = useState("");
   const [timeframe, setTimeframe] = useState("");
@@ -141,6 +142,7 @@ Resources:
   };
 
   const addTeamMember = async () => {
+    setPopFlag(true);
     const newRow = createData(name, skill, level, timeframe);
     setRows([...rows, newRow]);
     setName("");
@@ -212,7 +214,7 @@ Resources:
         <h1 className="Title">Team Skill Development Platform</h1>
         <h4>
           TIP: Ensure your inputs are saved by clicking "add team member" before
-          generating a task.
+          generating a task. (add as many members as you'd like)
         </h4>
         <TextField
           required
@@ -225,7 +227,7 @@ Resources:
             width: 500,
             "& .MuiOutlinedInput-root": {
               borderRadius: "30px",
-              border: "1px solid #ccc",
+              border: "1px solid #00CFFF",
             },
             "& .MuiOutlinedInput-input": {
               backgroundColor: "#96ecff72",
@@ -246,7 +248,7 @@ Resources:
             width: 500,
             "& .MuiOutlinedInput-root": {
               borderRadius: "30px",
-              border: "1px solid #ccc",
+              border: "1px solid #00CFFF",
             },
             "& .MuiOutlinedInput-input": {
               backgroundColor: "#96ecff72",
@@ -266,7 +268,7 @@ Resources:
             width: 500,
             "& .MuiOutlinedInput-root": {
               borderRadius: "30px",
-              border: "1px solid #ccc",
+              border: "1px solid #00CFFF",
             },
             "& .MuiOutlinedInput-input": {
               backgroundColor: "#96ecff72",
@@ -275,7 +277,6 @@ Resources:
             },
           }}
         />
-
         <TextField
           required
           id="outlined-required"
@@ -287,7 +288,7 @@ Resources:
             width: 500,
             "& .MuiOutlinedInput-root": {
               borderRadius: "30px",
-              border: "1px solid #ccc",
+              border: "1px solid #00CFFF",
             },
             "& .MuiOutlinedInput-input": {
               backgroundColor: "#96ecff72",
@@ -303,31 +304,34 @@ Resources:
           Generate Hackathon Task
         </Button>
 
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 500 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="right">Name</TableCell>
-                <TableCell align="right">Skill</TableCell>
-                <TableCell align="right">Level</TableCell>
-                <TableCell align="right">Timeframe</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key="Name"
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell align="right">{row.nameP}</TableCell>
-                  <TableCell align="right">{row.skillP}</TableCell>
-                  <TableCell align="right">{row.levelP}</TableCell>
-                  <TableCell align="right">{row.timeP}</TableCell>
+        {popFlag && (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 500 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="right">Name</TableCell>
+                  <TableCell align="right">Skill</TableCell>
+                  <TableCell align="right">Level</TableCell>
+                  <TableCell align="right">Timeframe</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key="Name"
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="right">{row.nameP}</TableCell>
+                    <TableCell align="right">{row.skillP}</TableCell>
+                    <TableCell align="right">{row.levelP}</TableCell>
+                    <TableCell align="right">{row.timeP}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+
         <div>{loading && !hackathonTask && <CircularProgress />}</div>
         <Snackbar
           open={open}
