@@ -8,19 +8,22 @@ import { CompletionResponse } from "@openai/openai-api";
 import Box from "@mui/material/Box";
 import "./App.css";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 const API_KEY = "API_KEY_HERE";
+let messageFeedback = "";
 
 const configuration = new Configuration({
-  apiKey: "API_KEY_HERE",
+  apiKey: "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",
 });
 
 const openai = new OpenAIApi(configuration);
@@ -35,7 +38,6 @@ function App() {
     return { nameP, skillP, levelP, timeP };
   }
 
-  const [open, setOpen] = React.useState(false);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [skill, setSkill] = useState("");
@@ -101,8 +103,6 @@ Resources:
 (Tool) tutorial: https://(tool).org/tutorial.html
     `;
 
-    setOpen(true);
-
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
@@ -153,16 +153,49 @@ Resources:
   if (numRows > 1) {
   }
 
-  const handleClose = (event, reason) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
     if (reason === "clickaway") {
       return;
     }
     setOpen(false);
   };
 
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        close
+      </Button>
+    </React.Fragment>
+  );
+
   const handleGenerateHackathonTaskClick = () => {
-    setLoading(true);
-    generateHackathonTask();
+    const allFieldsPopulated =
+      rows.length !== 0 ||
+      (name.trim() !== "" &&
+        skill.trim() !== "" &&
+        level.trim() !== "" &&
+        timeframe.trim() !== "");
+
+    if (allFieldsPopulated) {
+      messageFeedback = "Request Succesfully Submitted";
+      setLoading(true);
+      setOpen(true);
+      generateHackathonTask();
+      setTimeout(() => {
+        setOpen(false);
+      }, 3000);
+    } else {
+      messageFeedback = "Request Failed - Make Sure All Fields Are Populated";
+      setOpen(true);
+      setTimeout(() => {
+        setOpen(false);
+      }, 3000);
+    }
   };
 
   return (
@@ -170,45 +203,98 @@ Resources:
       <style>
         {`
           body {
-            background-image: url('/backg.png');
+            background-image: url('/bgwave.jpg');
             background-size: cover;
           }
         `}
       </style>
       <div className="Spacing">
         <h1 className="Title">Team Skill Development Platform</h1>
+        <h4>
+          TIP: Ensure your inputs are saved by clicking "add team member" before
+          generating a task.
+        </h4>
+        <TextField
+          required
+          id="outlined-required"
+          label="Enter your name"
+          value={name}
+          variant="outlined"
+          onChange={handleNameChange}
+          sx={{
+            width: 500,
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "30px",
+              border: "1px solid #ccc",
+            },
+            "& .MuiOutlinedInput-input": {
+              backgroundColor: "#96ecff72",
+              borderRadius: "30px",
+              padding: "17px",
+            },
+          }}
+        />
 
         <TextField
           required
-          id="filled-required"
-          label="Enter your name"
-          value={name}
-          variant="filled"
-          onChange={handleNameChange}
-        />
-        <TextField
-          required
-          id="filled-required"
+          id="outlined-required"
           label="Enter the skill you would like to learn"
           value={skill}
-          variant="filled"
+          variant="outlined"
           onChange={handleSkillChange}
+          sx={{
+            width: 500,
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "30px",
+              border: "1px solid #ccc",
+            },
+            "& .MuiOutlinedInput-input": {
+              backgroundColor: "#96ecff72",
+              borderRadius: "30px",
+              padding: "17px",
+            },
+          }}
         />
         <TextField
           required
-          id="filled-required"
+          id="outlined-required"
           label="To what level would you like to learn (e.g basic - expert)"
           value={level}
-          variant="filled"
+          variant="outlined"
           onChange={handleLevelChange}
+          sx={{
+            width: 500,
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "30px",
+              border: "1px solid #ccc",
+            },
+            "& .MuiOutlinedInput-input": {
+              backgroundColor: "#96ecff72",
+              borderRadius: "30px",
+              padding: "17px",
+            },
+          }}
         />
+
         <TextField
           required
-          id="filled-required"
+          id="outlined-required"
           label="Hackathon Duration (e.g 1 day, week, month) "
           value={timeframe}
-          variant="filled"
+          variant="outlined"
           onChange={handleTimeframeChange}
+          sx={{
+            width: 500,
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "30px",
+              border: "1px solid #ccc",
+            },
+            "& .MuiOutlinedInput-input": {
+              backgroundColor: "#96ecff72",
+              borderRadius: "30px",
+              padding: "17px",
+            },
+          }}
         />
         <Button variant="contained" onClick={addTeamMember}>
           Add Team Member
@@ -243,6 +329,13 @@ Resources:
           </Table>
         </TableContainer>
         <div>{loading && !hackathonTask && <CircularProgress />}</div>
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message={messageFeedback}
+          action={action}
+        />
       </div>
 
       <div className={`Preview-Box ${hackathonTask ? "show" : ""}`}>
