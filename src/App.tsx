@@ -20,7 +20,7 @@ import Paper from "@mui/material/Paper";
 const API_KEY = "API_KEY_HERE";
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "API_KEY_HERE",
 });
 
 const openai = new OpenAIApi(configuration);
