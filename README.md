@@ -45,11 +45,11 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 # Tailored Hackathon Generator
-This is a React.js web application that generates a comprehensive and customised learning plan (hackathon) for team members to master a particular skill to a specific level within a given timeframe. The generated plan includes an overview of the task, specific and actionable steps, resources to call upon to help with learning the skill, and help with completing the task, as well milestones that each team member can follow to achieve their objectives.
+This is a React.js web application that generates a comprehensive and customized learning plan (hackathon) for team members to master a particular skill to a specific level within a given timeframe. The generated plan includes an overview of the task, specific and actionable steps, resources to call upon to help with learning the skill, and help with completing the task, and milestones that each team member can follow to achieve their objectives.
+
+The application uses OpenAI's GPT-3 API to generate the hackathon learning plan based on the team member's name, skill, level, and timeframe inputs.
 
 There is the ability to add as many team members to the list as you want, each with different skill development requests, therefore if there are already existing team member records, the app will automatically generate a comprehensive learning plan for multiple team members that combines all of the inputs into a final project plan that will allow the members to work together and develop team working skills as a bonus whilst advancing their skills in a practical non boring way.
-
-The application uses OpenAI's API to generate the hackathon learning plan based on the team member's name, skill, level, and timeframe inputs. 
 
 ## Future Plans
 Input field for users emails, this will allow for an email to be generated and sent to each team member with the hackathon brief and the specific tasks that they are required to do.
@@ -62,12 +62,18 @@ Navigate to the project directory: cd REPOSITORY
 Install dependencies: npm install
 Run the app: npm start
 
+You should replace USERNAME/REPOSITORY with your GitHub username and the name of the cloned repository.
+
 ## Usage
 To use the app, fill out the form with the team member's name, skill, level, and timeframe to master the skill. The generated hackathon learning plan will be displayed in the textbox below the form.
+
+
+If there are already existing team member records, the app will automatically generate a comprehensive learning plan for multiple team members.
 
 ## Dependencies
 @mui/material
 @openai/openai-api
+
 
 ## Contributing
 Feel free to submit a pull request or raise an issue for bug fixes or new features.
